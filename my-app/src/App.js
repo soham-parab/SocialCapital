@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import store from "./Redux/store";
 import Login from "./Pages/user/Login/Login";
 import Home from "./Pages/Home/Home";
 import Register from "./Pages/user/Register/Register";

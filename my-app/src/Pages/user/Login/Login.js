@@ -1,6 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import { Flex, Spacer, Box, Heading, Button } from "@chakra-ui/react";
+import {
+  Flex,
+  Spacer,
+  Box,
+  Heading,
+  Button,
+  typography,
+} from "@chakra-ui/react";
 import { Link, Navigate } from "react-router-dom";
 import { FormLabel } from "@chakra-ui/form-control";
 import { FormControl } from "@chakra-ui/form-control";
@@ -13,12 +20,13 @@ import { useToast } from "@chakra-ui/toast";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { login } from "../../../features/user/userSlice";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-
+  const toast = useToast();
   const [loginValues, setLoginValues] = useState({
     username: null,
     password: null,
@@ -32,16 +40,40 @@ function Login() {
     });
   }
 
-  async function LoginButtonClicked() {
+  async function userLogin(event) {
     try {
-      const response = await axios.post(
-        "https://socialcapital-rest-api.herokuapp.com/login",
-        loginValues
-      );
+      let result = await dispatch(login(loginValues));
+      result = unwrapResult(result);
+      navigate("/");
+      toast({
+        position: "bottom-right",
+        title: `Logged In Successfully.`,
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
     } catch (error) {
       console.log(error);
+      toast({
+        position: "bottom-right",
+        title: error.message,
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   }
+
+  // async function LoginButtonClicked() {
+  //   try {
+  //     const response = await axios.post(
+  //       "https://socialcapital-rest-api.herokuapp.com/login",
+  //       loginValues
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   return (
     <div>
@@ -52,7 +84,7 @@ function Login() {
               Login
             </Heading>
           </Box>
-          <form>
+          <form onSubmit={userLogin}>
             <VStack spacing={5}>
               <FormControl isRequired>
                 <FormLabel>Username</FormLabel>
@@ -76,25 +108,24 @@ function Login() {
                   onChange={inputHandler}
                 />
               </FormControl>
-              <Button
-                width="full"
-                colorScheme="blue"
-                type="submit"
-                onClick={LoginButtonClicked}
-              >
-                Sign In
+              <Button width="full" colorScheme="blue" type="submit">
+                {(user.status === "idle" || user.status === "error") && (
+                  <span>Log In</span>
+                )}
+                {user.status === "loading" && <Spinner />}
               </Button>
             </VStack>
           </form>
           <Text m={4} width="100%" textAlign="center">
-            Don't have an account ?
+            Don't have an account?{" "}
             <Button
               variant="link"
               colorScheme="blue"
               onClick={() => navigate("/register")}
             >
               Sign Up
-            </Button>{" "}
+            </Button>
+            {"   "}
           </Text>
         </Box>
       </Center>
