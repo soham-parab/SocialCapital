@@ -1,7 +1,25 @@
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import store from "./Redux/store/store";
+import Login from "./Pages/user/Login/Login";
+import Home from "./Pages/Home/Home";
+import Register from "./Pages/user/Register/Register";
+import UserHome from "./Pages/UserHome/UserHome";
 
 function App() {
-  return <div>Hello!!!!!</div>;
+  console.log(store.getState());
+  return (
+    <div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/userhome" element={<UserHome />} />
+        </Routes>
+      </Router>
+    </div>
+  );
 }
 
 export default App;
