@@ -7,7 +7,6 @@ import { Center, Text } from "@chakra-ui/layout";
 import { VStack } from "@chakra-ui/layout";
 import { Box } from "@chakra-ui/layout";
 import { Heading } from "@chakra-ui/layout";
-import { Flex } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
@@ -17,7 +16,6 @@ function Register() {
   const navigate = useNavigate();
   const toast = useToast();
   const [registerValues, setRegisterValues] = useState({
-    name: null,
     username: null,
     password: null,
   });
@@ -27,44 +25,43 @@ function Register() {
   const inputHandler = (event) => {
     setRegisterValues((registerValues) => {
       registerValues[event.target.name] = event.target.value;
-      return { ...registerValues };
+      console.log(registerValues);
+      return registerValues;
     });
   };
   const userRegister = async (event) => {
     console.log("asdasd");
     try {
+      console.log("response");
       setStatus("loading");
       const response = await axios.post(
-        `https://socialcapital-rest-api.herokuapp.com/register`,
-        {
-          username: "sohamppppp",
-          password: "passwordddd",
-        }
+        `http://localhost:3005/register`,
+        registerValues
       );
       console.log(response);
       setStatus("idle");
-      if (response.data.success) {
-        toast({
-          position: "top-right",
-          title: `Account Created Successfully.`,
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-        });
-        navigate("/login");
-      }
+      // if (response.data.success) {
+      //   toast({
+      //     position: "top-right",
+      //     title: `Account Created Successfully.`,
+      //     status: "success",
+      //     duration: 2000,
+      //     isClosable: true,
+      //   });
+      //   // navigate("/login");
+      // }
     } catch (error) {
       setStatus("idle");
-      console.log(error.response);
-      toast({
-        position: "top-right",
-        title: error.response?.data?.message
-          ? error.response?.data?.message
-          : "Something Went Wrong",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
+      console.log("error");
+      // toast({
+      //   position: "top-right",
+      //   title: error.response?.data?.message
+      //     ? error.response?.data?.message
+      //     : "Something Went Wrong",
+      //   status: "error",
+      //   duration: 2000,
+      //   isClosable: true,
+      // });
     }
   };
   return (
@@ -79,7 +76,7 @@ function Register() {
           </Box>
           <form>
             <VStack spacing={5}>
-              <FormControl isRequired>
+              {/* <FormControl isRequired>
                 <FormLabel>Name</FormLabel>
                 <Input
                   size="md"
@@ -89,7 +86,7 @@ function Register() {
                   onChange={inputHandler}
                   placeholder="Enter your name"
                 />
-              </FormControl>
+              </FormControl> */}
               <FormControl isRequired>
                 <FormLabel>Username</FormLabel>
                 <Input
@@ -135,6 +132,9 @@ function Register() {
           </Text>
         </Box>
       </Center>
+      {/* <input type="text" onChange={inputHandler} />
+      <input onChange={inputHandler} />
+      <button onClick={userRegister}>CLICK</button> */}
     </div>
   );
 }
