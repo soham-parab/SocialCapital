@@ -20,7 +20,7 @@ import { useToast } from "@chakra-ui/toast";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { login } from "../../../features/user/userSlice";
+import { login } from "../../../Redux/slices/userSlice";
 
 export function Login() {
   const navigate = useNavigate();
