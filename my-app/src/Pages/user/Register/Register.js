@@ -12,7 +12,7 @@ import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
-function Register() {
+export function Register() {
   const navigate = useNavigate();
   const toast = useToast();
   const [registerValues, setRegisterValues] = useState({
@@ -71,7 +71,7 @@ function Register() {
         <Box>
           <Box mb={5} textAlign="center">
             <Heading as="h2" size="lg">
-              Sign Up
+              Register
             </Heading>
           </Box>
           <form>
@@ -138,5 +138,3 @@ function Register() {
     </div>
   );
 }
-
-export default Register;

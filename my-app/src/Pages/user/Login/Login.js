@@ -22,7 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { login } from "../../../features/user/userSlice";
 
-function Login() {
+export function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -132,5 +132,3 @@ function Login() {
     </div>
   );
 }
-
-export default Login;
