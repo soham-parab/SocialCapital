@@ -4,14 +4,17 @@ import App from "./App";
 import { Provider } from "react-redux";
 import store from "./Redux/store";
 import { ChakraProvider, theme } from "@chakra-ui/react";
+import { AuthProvider } from "./context/authContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
-    </Provider>
+    <AuthProvider>
+      <Provider store={store}>
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
+      </Provider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,14 +1,14 @@
-import axios from "axios";
+// import axios from "axios";
 
-export const saveUserToLocalStorage = (user, token) => {
-  localStorage.setItem(
-    "user",
-    JSON.stringify({
-      userId: user._id,
-      token: token,
-    })
-  );
-};
+// export const saveUserToLocalStorage = (user, token) => {
+//   localStorage.setItem(
+//     "user",
+//     JSON.stringify({
+//       userId: user._id,
+//       token: token,
+//     })
+//   );
+// };
 
 // export const setupAuthHeader = (token) => {
 //   if (token) {

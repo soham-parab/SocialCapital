@@ -20,9 +20,12 @@ import { useToast } from "@chakra-ui/toast";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { login } from "../../../Redux/slices/userSlice";
+
+import { useAuth } from "../../../context/authContext";
 
 export function Login() {
+  const { auth, setAuth } = useAuth();
+  console.log(auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -40,40 +43,45 @@ export function Login() {
     });
   }
 
-  async function userLogin(event) {
-    try {
-      let result = await dispatch(login(loginValues));
-      result = unwrapResult(result);
-      navigate("/");
-      toast({
-        position: "bottom-right",
-        title: `Logged In Successfully.`,
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
-    } catch (error) {
-      console.log(error);
-      toast({
-        position: "bottom-right",
-        title: error.message,
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
-    }
-  }
-
-  // async function LoginButtonClicked() {
+  // async function userLogin(event) {
   //   try {
-  //     const response = await axios.post(
-  //       "https://socialcapital-rest-api.herokuapp.com/login",
-  //       loginValues
-  //     );
+  //     let result = await dispatch(login(loginValues));
+  //     result = unwrapResult(result);
+  //     navigate("/");
+  //     toast({
+  //       position: "bottom-right",
+  //       title: `Logged In Successfully.`,
+  //       status: "success",
+  //       duration: 2000,
+  //       isClosable: true,
+  //     });
   //   } catch (error) {
   //     console.log(error);
+  //     toast({
+  //       position: "bottom-right",
+  //       title: error.message,
+  //       status: "error",
+  //       duration: 2000,
+  //       isClosable: true,
+  //     });
   //   }
   // }
+
+  async function LoginButtonClicked(e) {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3005/login",
+        loginValues
+      );
+      console.log(loginValues);
+      console.log(response);
+      setAuth(response.data);
+      localStorage.setItem("auth", JSON.stringify(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -84,7 +92,7 @@ export function Login() {
               Login
             </Heading>
           </Box>
-          <form onSubmit={userLogin}>
+          <form onSubmit={LoginButtonClicked}>
             <VStack spacing={5}>
               <FormControl isRequired>
                 <FormLabel>Username</FormLabel>
