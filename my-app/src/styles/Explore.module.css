@@ -1,0 +1,40 @@
+/* .container {
+  border: 0.1rem solid #fff;
+  width: 50vw;
+  min-height: 100vh;
+  height: fit-content;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  height: 4rem;
+  width: 49.8vw;
+  z-index: 5;
+  background-color: #151515;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.body {
+  padding-top: 5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 600px) and (max-width: 1000px) {
+  .container {
+    width: calc(100vw - 6rem);
+  }
+  .header {
+    width: calc(100vw - 6rem);
+  }
+}
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100vw;
+  }
+  .header {
+    width: 100vw;
+  }
+} */
