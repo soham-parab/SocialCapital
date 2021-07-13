@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import cookie from "js-cookie";
 import { API_URL } from "../../utilities/api";
-import styles from "../styles";
+import styles from "../../styles/Explore.module.css";
 import { Button, Image, List, Input } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth } from "../../context/authContext";
@@ -36,10 +36,12 @@ function Explore({ user }) {
     setText(value);
     if (value) {
       try {
+    
         const token = cookie.get("token");
         const res = await axios.get(`${API_URL}/search/${value}`, {
           headers: { Authorization: token },
         });
+        console.log(results)
         setResults(res.data);
       } catch (error) {
         console.log("Error Searching");

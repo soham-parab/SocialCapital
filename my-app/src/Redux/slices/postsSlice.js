@@ -1,14 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import cookie from "js-cookie";
 import { API_URL } from "../../utilities/api";
 import { useAuth } from "../../context/authContext";
+
+const token = JSON.parse(localStorage.getItem("auth"))
+  ? JSON.parse(localStorage.getItem("auth")).token
+  : "";
 
 const Axios = axios.create({
   baseURL: `${API_URL}/posts`,
   headers: {
-    Authorization: JSON.parse(localStorage.getItem("auth")).token,
+    Authorization: token,
   },
 });
 

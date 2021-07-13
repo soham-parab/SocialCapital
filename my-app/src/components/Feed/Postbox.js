@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { uploadPic } from "../uploadpic";
+// import { uploadPic } from "../uploadpic";
 import { Icon, Loader } from "semantic-ui-react";
 import styles from "../../styles/Postbox.module.css";
 import { Link } from "react-router-dom";
@@ -11,36 +11,26 @@ function Postbox({ user }) {
   const postsData = useSelector((state) => state.postsReducer);
 
   const [newPost, setNewPost] = useState({ text: "", location: "" });
-  const [media, setMedia] = useState(null);
+
   const { text, location } = newPost;
 
   const dispatch = useDispatch();
 
   async function submitHandler(e) {
     e.preventDefault();
-    let picUrl = null;
-    if (media !== null) {
-      picUrl = await uploadPic(media);
-      if (!picUrl) {
-        console.log("Error Uploading Image");
-      }
-    }
-    const req = { text, location, picUrl };
+
+    const req = { text, location };
 
     dispatch(submitNewPost(req));
 
     if (postsData.status === "succeeded" || postsData.status === "failed") {
-      setMedia(null);
       setNewPost({ text: "", location: "" });
     }
   }
 
   function handleChange(e) {
-    const { name, value, files } = e.target;
+    const { name, value } = e.target;
 
-    if (name === "media") {
-      setMedia(files[0]);
-    }
     setNewPost((prev) => ({ ...prev, [name]: value }));
   }
 
@@ -64,23 +54,10 @@ function Postbox({ user }) {
           />
         </div>
         <hr className={styles.shareHr} />
-        {media && (
-          <div className={styles.shareImgContainer}>
-            <img
-              className={styles.shareImg}
-              src={URL.createObjectURL(media)}
-              alt=""
-            />
-            <Icon
-              name="cancel"
-              className={styles.shareCancelImg}
-              onClick={() => setMedia(null)}
-            />
-          </div>
-        )}
+
         <form className={styles.shareBottom} onSubmit={submitHandler}>
           <div className={styles.shareOptions}>
-            <label htmlFor="file" className={styles.shareOption}>
+            {/* <label htmlFor="file" className={styles.shareOption}>
               <Icon name="images" className={styles.shareIcon} />
               <span className={styles.shareOptionText}>Photo</span>
               <input
@@ -91,7 +68,7 @@ function Postbox({ user }) {
                 accept=".png,.jpeg,.jpg"
                 onChange={handleChange}
               />
-            </label>
+            </label> */}
             <div className={styles.shareOption}>
               <Icon name="map marker" className={styles.shareIcon} />
               <span className={styles.shareOptionText}>Location</span>

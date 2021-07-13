@@ -27,9 +27,7 @@ export function Login() {
   const { auth, setAuth } = useAuth();
   console.log(auth);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const toast = useToast();
+
   const [loginValues, setLoginValues] = useState({
     username: null,
     password: null,
@@ -43,30 +41,6 @@ export function Login() {
     });
   }
 
-  // async function userLogin(event) {
-  //   try {
-  //     let result = await dispatch(login(loginValues));
-  //     result = unwrapResult(result);
-  //     navigate("/");
-  //     toast({
-  //       position: "bottom-right",
-  //       title: `Logged In Successfully.`,
-  //       status: "success",
-  //       duration: 2000,
-  //       isClosable: true,
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast({
-  //       position: "bottom-right",
-  //       title: error.message,
-  //       status: "error",
-  //       duration: 2000,
-  //       isClosable: true,
-  //     });
-  //   }
-  // }
-
   async function LoginButtonClicked(e) {
     e.preventDefault();
     try {
@@ -74,10 +48,10 @@ export function Login() {
         "http://localhost:3005/login",
         loginValues
       );
-      console.log(loginValues);
-      console.log(response);
       setAuth(response.data);
+      console.log(response.data);
       localStorage.setItem("auth", JSON.stringify(response.data));
+      navigate("/feed");
     } catch (error) {
       console.log(error);
     }
@@ -89,10 +63,13 @@ export function Login() {
         <Box>
           <Box mb={5} textAlign="center">
             <Heading as="h2" size="lg">
+              SocialCapital
+            </Heading>
+            <Heading as="h2" size="lg" padding="2rem">
               Login
             </Heading>
           </Box>
-          <form onSubmit={LoginButtonClicked}>
+          <form>
             <VStack spacing={5}>
               <FormControl isRequired>
                 <FormLabel>Username</FormLabel>
@@ -116,11 +93,13 @@ export function Login() {
                   onChange={inputHandler}
                 />
               </FormControl>
-              <Button width="full" colorScheme="blue" type="submit">
-                {(user.status === "idle" || user.status === "error") && (
-                  <span>Log In</span>
-                )}
-                {user.status === "loading" && <Spinner />}
+              <Button
+                width="full"
+                colorScheme="blue"
+                type="submit"
+                onClick={LoginButtonClicked}
+              >
+                <span>Log In</span>
               </Button>
             </VStack>
           </form>

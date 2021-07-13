@@ -4,7 +4,7 @@ import styles from "../../styles/Postbox.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPosts } from "../../Redux/slices/postsSlice";
 import { useAuth } from "../../context/authContext";
-
+import Post from "./Post";
 function Feed() {
   const { auth } = useAuth();
   const postsData = useSelector((state) => state.postsReducer);
@@ -27,7 +27,20 @@ function Feed() {
     setPageNumber((prev) => prev + 1);
   };
 
-  return <h1>hjdias</h1>;
+  return (
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <span>Home</span>
+      </div>
+      <Postbox user={auth.user} />
+
+      {postsData.posts.map((post) => (
+        <Post postId={post._id} user={auth.user} />
+      ))}
+
+      <div style={{ height: "4rem" }}></div>
+    </div>
+  );
 }
 
 export default Feed;

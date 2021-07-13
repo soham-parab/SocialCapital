@@ -3,10 +3,14 @@ import axios from "axios";
 
 import { API_URL } from "../../utilities/api";
 
+const token = JSON.parse(localStorage.getItem("auth"))
+  ? JSON.parse(localStorage.getItem("auth")).token
+  : "";
+
 const Axios = axios.create({
   baseURL: `${API_URL}/posts`,
   headers: {
-    Authorization: JSON.parse(localStorage.getItem("auth")).token,
+    Authorization: token,
   },
 });
 

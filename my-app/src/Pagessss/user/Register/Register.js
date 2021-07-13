@@ -38,6 +38,7 @@ export function Register() {
         `http://localhost:3005/register`,
         registerValues
       );
+
       console.log(response);
       setStatus("idle");
       // if (response.data.success) {
