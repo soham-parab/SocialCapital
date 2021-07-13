@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchPosts } from "../../Redux/slices/postsSlice";
 import { useAuth } from "../../context/authContext";
 import Post from "./Post";
+import { fetchProfileStats } from "../../Redux/slices/profileSlice";
 function Feed() {
   const { auth } = useAuth();
   const postsData = useSelector((state) => state.postsReducer);
@@ -20,6 +21,7 @@ function Feed() {
   useEffect(() => {
     console.log("adsa");
     dispatch(fetchPosts(1));
+    dispatch(fetchProfileStats(auth.user.username));
   }, []);
 
   const fetchDataOnScroll = async () => {

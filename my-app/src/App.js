@@ -9,8 +9,12 @@ import { Followers } from "./Pagessss/Followers/Followers";
 
 import Feed from "../src/pages/index";
 import Explore from "./pages/explore";
+import { useAuth } from "./context/authContext";
 
 function App() {
+  const { auth } = useAuth();
+
+  console.log(localStorage.getItem("auth"));
   return (
     <div>
       <Router>

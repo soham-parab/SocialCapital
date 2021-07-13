@@ -8,7 +8,7 @@ const token = JSON.parse(localStorage.getItem("auth"))
   : "";
 
 const Axios = axios.create({
-  baseURL: `${API_URL}/posts`,
+  baseURL: `${API_URL}`,
   headers: {
     Authorization: token,
   },
@@ -25,7 +25,7 @@ export const fetchPosts = createAsyncThunk(
 export const fetchProfileStats = createAsyncThunk(
   "profile/fetchProfileStats",
   async (username) => {
-    const res = await Axios.get(`/${username}`);
+    const res = await Axios.get(`/profile/${username}`);
     return res.data;
   }
 );
@@ -33,7 +33,7 @@ export const fetchProfileStats = createAsyncThunk(
 export const followUser = createAsyncThunk(
   "profile/followUser",
   async (userId) => {
-    const res = await Axios.post(`/follow/${userId}`);
+    const res = await Axios.post(`/profile/follow/${userId}`);
     return userId;
   }
 );
@@ -41,7 +41,7 @@ export const followUser = createAsyncThunk(
 export const unFollowUser = createAsyncThunk(
   "profile/unFollowUser",
   async (userId) => {
-    const res = await Axios.put(`/unfollow/${userId}`);
+    const res = await Axios.put(`/profile/unfollow/${userId}`);
     return userId;
   }
 );
