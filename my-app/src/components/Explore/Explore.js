@@ -57,7 +57,7 @@ function Explore({ user }) {
           fluid
           icon="users"
           iconPosition="left"
-          placeholder="Search nerds to connect..."
+          placeholder="Search for users"
           value={text}
           onChange={handleChange}
         />
