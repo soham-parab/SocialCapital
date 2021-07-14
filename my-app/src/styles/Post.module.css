@@ -1,12 +1,21 @@
 .postTopRight {
-  width: 30%;
+  width: 45%;
   display: flex;
   justify-content: space-around;
 }
 
-.rightDiv,
-.leftDiv {
-  width: 70%;
+.rightDiv {
+  width: 100%;
   display: flex;
   justify-content: space-around;
+}
+
+.leftDiv {
+  display: flex;
+  width: 90%;
+  align-items: baseline;
+}
+
+.postUsername {
+  margin-left: 1rem;
 }

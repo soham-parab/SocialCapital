@@ -39,6 +39,9 @@ function Post({ postId, user }) {
   return (
     <Flex width={"100%"} alignItems={"center"} justifyContent={"center"}>
       <Flex
+        border={"1px"}
+        marginY={"3"}
+        paddingY={"3"}
         direction={"column"}
         width={"50%"}
         alignItems={"center"}
@@ -47,7 +50,11 @@ function Post({ postId, user }) {
         <div className={styles.postTopRight}>
           <div className={styles.leftDiv}>
             <Link to={`/${post.user.username}`}>
-              <Avatar name={user.username} src={user.profilePicUrl} />
+              <Avatar
+                padding={"1rem"}
+                name={user.username}
+                src={user.profilePicUrl}
+              />
 
               {/* <img
               className={styles.postProfileImg}
