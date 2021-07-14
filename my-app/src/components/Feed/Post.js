@@ -5,6 +5,18 @@ import calculateTime from "../../utilsClient/calculateTime";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, likePost } from "../../Redux/slices/postsSlice";
 import { Link } from "react-router-dom";
+
+import { useAuth } from "../../context/authContext";
+import { Avatar, Textarea, Flex, Button, Box } from "@chakra-ui/react";
+import {
+  PhoneIcon,
+  AddIcon,
+  WarningIcon,
+  DeleteIcon,
+  CheckIcon,
+  SmallCloseIcon,
+} from "@chakra-ui/icons";
+import { RiThumbDownFill, RiThumbUpFill } from "react-icons/ri";
 function Post({ postId, user }) {
   const postsData = useSelector((state) => state.postsReducer);
   console.log(postsData);
@@ -25,100 +37,74 @@ function Post({ postId, user }) {
   };
 
   return (
-    <div key={postId} className={styles.post}>
-      <div className={styles.postWrapper}>
-        <div className={styles.postTop}>
-          <div className={styles.postTopLeft}>
+    <Flex width={"100%"} alignItems={"center"} justifyContent={"center"}>
+      <Flex
+        direction={"column"}
+        width={"50%"}
+        alignItems={"center"}
+        justifyContent={"center"}
+      >
+        <div className={styles.postTopRight}>
+          <div className={styles.leftDiv}>
             <Link to={`/${post.user.username}`}>
-              <img
-                className={styles.postProfileImg}
-                src={post.user.profilePicUrl}
-                alt=""
-              />
+              <Avatar name={user.username} src={user.profilePicUrl} />
+
+              {/* <img
+              className={styles.postProfileImg}
+              src={post.user.profilePicUrl}
+              alt=""
+            /> */}
             </Link>
             <span className={styles.postUsername}>{post.user.name}</span>
+          </div>
+
+          <div className={styles.rightDiv}>
             <span className={styles.postDate}>
               {calculateTime(post.createdAt)}
             </span>
-          </div>
-          <div className={styles.postTopRight}>
+
             {user._id === post.user._id && (
-              // <Icon
-              //   name="trash"
-              //   onClick={() => setViewDeleteConfirm((prev) => !prev)}
-              // />
-
-              <button onClick={() => setViewDeleteConfirm((prev) => !prev)}>
-                Trash
-              </button>
-            )}
-            <div
-              className={styles.confirmDelete}
-              style={{ display: viewDeleteConfirm ? "" : "none" }}
-            >
-              {/* <Icon
-                name="check square"
-                onClick={() => {
-                  setViewDeleteConfirm((prev) => !prev);
-                  dispatch(deletePost(post._id));
-                }}
-              /> */}
-
-              <button
-                onClick={() => {
-                  setViewDeleteConfirm((prev) => !prev);
-                  dispatch(deletePost(post._id));
-                }}
-              >
-                confirm{" "}
-              </button>
-
-              {/* <Icon
-                name="window close"
+              <DeleteIcon
+                cursor={"pointer"}
                 onClick={() => setViewDeleteConfirm((prev) => !prev)}
-              /> */}
+              />
+            )}
+          </div>
 
-              <button onClick={() => setViewDeleteConfirm((prev) => !prev)}>
-                window close
-              </button>
-            </div>
+          <div
+            className={styles.confirmDelete}
+            style={{ display: viewDeleteConfirm ? "" : "none" }}
+          >
+            <CheckIcon
+              cursor={"pointer"}
+              onClick={() => {
+                setViewDeleteConfirm((prev) => !prev);
+                dispatch(deletePost(post._id));
+              }}
+            />
+
+            <SmallCloseIcon
+              cursor={"pointer"}
+              onClick={() => setViewDeleteConfirm((prev) => !prev)}
+            />
           </div>
         </div>
+
         <div className={styles.postCenter}>
           <span className={styles.postText}>{post.text}</span>
           <img className={styles.postImg} src={post.picUrl} alt="" />
         </div>
-        <div className={styles.postBottom}>
-          <div className={styles.postBottomLeft}>
-            {isLiked ? (
-              // <Icon
-              //   className={styles.likeIcon}
-              //   name="thumbs up"
-              //   onClick={likeHandler}
-              // />
 
-              <button onClick={likeHandler}>Likeeeeeeeeeeee</button>
-            ) : (
-              // <Icon
-              //   className={styles.likeIcon}
-              //   name="thumbs up outline"
-              //   onClick={likeHandler}
-              // />
-
-              <button onClick={likeHandler}>Disliekeeeeeeee</button>
-            )}
-            <span className={styles.postLikeCounter}>
-              {likes.length} people like it
-            </span>
-          </div>
-          {/* <div className={styles.postBottomRight}>
-            <span className={styles.postCommentText}>
-              {post.comment} comments
-            </span>
-          </div> */}
-        </div>
-      </div>
-    </div>
+        {!isLiked ? (
+          <RiThumbUpFill cursor={"pointer"} onClick={likeHandler} />
+        ) : (
+          <RiThumbDownFill cursor={"pointer"} onClick={likeHandler} />
+        )}
+        <span className={styles.postLikeCounter}>
+          {likes.length} people like it
+        </span>
+      </Flex>
+    </Flex>
   );
 }
 

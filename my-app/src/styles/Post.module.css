@@ -1,0 +1,12 @@
+.postTopRight {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.rightDiv,
+.leftDiv {
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+}
