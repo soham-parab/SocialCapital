@@ -43,26 +43,44 @@ function Post({ postId, user }) {
           </div>
           <div className={styles.postTopRight}>
             {user._id === post.user._id && (
-              <Icon
-                name="trash"
-                onClick={() => setViewDeleteConfirm((prev) => !prev)}
-              />
+              // <Icon
+              //   name="trash"
+              //   onClick={() => setViewDeleteConfirm((prev) => !prev)}
+              // />
+
+              <button onClick={() => setViewDeleteConfirm((prev) => !prev)}>
+                Trash
+              </button>
             )}
             <div
               className={styles.confirmDelete}
               style={{ display: viewDeleteConfirm ? "" : "none" }}
             >
-              <Icon
+              {/* <Icon
                 name="check square"
                 onClick={() => {
                   setViewDeleteConfirm((prev) => !prev);
                   dispatch(deletePost(post._id));
                 }}
-              />
-              <Icon
+              /> */}
+
+              <button
+                onClick={() => {
+                  setViewDeleteConfirm((prev) => !prev);
+                  dispatch(deletePost(post._id));
+                }}
+              >
+                confirm{" "}
+              </button>
+
+              {/* <Icon
                 name="window close"
                 onClick={() => setViewDeleteConfirm((prev) => !prev)}
-              />
+              /> */}
+
+              <button onClick={() => setViewDeleteConfirm((prev) => !prev)}>
+                window close
+              </button>
             </div>
           </div>
         </div>
@@ -73,27 +91,31 @@ function Post({ postId, user }) {
         <div className={styles.postBottom}>
           <div className={styles.postBottomLeft}>
             {isLiked ? (
-              <Icon
-                className={styles.likeIcon}
-                name="thumbs up"
-                onClick={likeHandler}
-              />
+              // <Icon
+              //   className={styles.likeIcon}
+              //   name="thumbs up"
+              //   onClick={likeHandler}
+              // />
+
+              <button onClick={likeHandler}>Likeeeeeeeeeeee</button>
             ) : (
-              <Icon
-                className={styles.likeIcon}
-                name="thumbs up outline"
-                onClick={likeHandler}
-              />
+              // <Icon
+              //   className={styles.likeIcon}
+              //   name="thumbs up outline"
+              //   onClick={likeHandler}
+              // />
+
+              <button onClick={likeHandler}>Disliekeeeeeeee</button>
             )}
             <span className={styles.postLikeCounter}>
               {likes.length} people like it
             </span>
           </div>
-          <div className={styles.postBottomRight}>
+          {/* <div className={styles.postBottomRight}>
             <span className={styles.postCommentText}>
               {post.comment} comments
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
