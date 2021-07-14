@@ -31,9 +31,7 @@ function Feed() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <span>Home</span>
-      </div>
+      <div className={styles.header}></div>
       <Postbox user={auth.user} />
 
       {postsData.posts.map((post) => (

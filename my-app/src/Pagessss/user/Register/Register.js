@@ -16,6 +16,7 @@ export function Register() {
   const navigate = useNavigate();
   const toast = useToast();
   const [registerValues, setRegisterValues] = useState({
+    name: null,
     username: null,
     password: null,
   });
@@ -41,28 +42,9 @@ export function Register() {
 
       console.log(response);
       setStatus("idle");
-      // if (response.data.success) {
-      //   toast({
-      //     position: "top-right",
-      //     title: `Account Created Successfully.`,
-      //     status: "success",
-      //     duration: 2000,
-      //     isClosable: true,
-      //   });
-      //   // navigate("/login");
-      // }
     } catch (error) {
       setStatus("idle");
       console.log("error");
-      // toast({
-      //   position: "top-right",
-      //   title: error.response?.data?.message
-      //     ? error.response?.data?.message
-      //     : "Something Went Wrong",
-      //   status: "error",
-      //   duration: 2000,
-      //   isClosable: true,
-      // });
     }
   };
   return (
@@ -77,7 +59,7 @@ export function Register() {
           </Box>
           <form>
             <VStack spacing={5}>
-              {/* <FormControl isRequired>
+              <FormControl isRequired>
                 <FormLabel>Name</FormLabel>
                 <Input
                   size="md"
@@ -87,7 +69,8 @@ export function Register() {
                   onChange={inputHandler}
                   placeholder="Enter your name"
                 />
-              </FormControl> */}
+              </FormControl>
+
               <FormControl isRequired>
                 <FormLabel>Username</FormLabel>
                 <Input
@@ -124,7 +107,7 @@ export function Register() {
           <Text m={4} width="100%" textAlign="center">
             Already Have an account ?{" "}
             <Button
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/")}
               variant="link"
               colorScheme="blue"
             >
@@ -133,9 +116,6 @@ export function Register() {
           </Text>
         </Box>
       </Center>
-      {/* <input type="text" onChange={inputHandler} />
-      <input onChange={inputHandler} />
-      <button onClick={userRegister}>CLICK</button> */}
     </div>
   );
 }

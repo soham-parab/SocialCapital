@@ -6,7 +6,7 @@ import { Register } from "./Pagessss/user/Register/Register";
 import Profile from "./components/Profile/Profile";
 import { Following } from "./Pagessss/Following/Following";
 import { Followers } from "./Pagessss/Followers/Followers";
-
+import Nav from "./components/Nav/Nav";
 import Feed from "../src/pages/index";
 import Explore from "./pages/explore";
 import { useAuth } from "./context/authContext";
@@ -17,6 +17,7 @@ function App() {
   console.log(localStorage.getItem("auth"));
   return (
     <div>
+      <Nav />
       <Router>
         <Routes>
           {/* <Route path="/" element={<Home />} /> */}

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { submitNewPost } from "../../Redux/slices/postsSlice";
 import { useAuth } from "../../context/authContext";
+import { Avatar, Textarea, Flex, Button } from "@chakra-ui/react";
 function Postbox({ user }) {
   const { auth } = useAuth();
   const postsData = useSelector((state) => state.postsReducer);
@@ -35,29 +36,34 @@ function Postbox({ user }) {
   }
 
   return (
-    <div className={styles.share}>
-      <div className={styles.shareWrapper}>
-        <div className={styles.shareTop}>
-          <Link to={`/${user.username}`}>
-            <img
-              className={styles.shareProfileImg}
-              src={user.profilePicUrl}
-              alt=""
-            />
-          </Link>
-          <textarea
-            name="text"
-            placeholder={"What's in your mind " + user.name + "?"}
-            className={styles.shareInput}
-            value={text}
-            onChange={handleChange}
-          />
-        </div>
-        <hr className={styles.shareHr} />
+    <Flex
+      height={"20vh"}
+      width={"100%"}
+      alignItems={"start"}
+      justifyContent={"space-around"}
+      paddingY="9"
+    >
+      <Link to={`/${user.username}`}>
+        <Avatar name={user.username} src={user.profilePicUrl} />
+      </Link>
+      <textarea
+        style={{ width: "80%", height: "10vh" }}
+        name="text"
+        value={text}
+        onChange={handleChange}
+        placeholder={"What's up " + user.name + "?"}
+        className={styles.shareInput}
+      />
 
-        <form className={styles.shareBottom} onSubmit={submitHandler}>
-          <div className={styles.shareOptions}>
-            {/* <label htmlFor="file" className={styles.shareOption}>
+      {/* <Textarea
+        width={"80%"}
+        placeholder={"What's up " + user.name + "?"}
+        value={text}
+        onChange={handleChange}
+      /> */}
+
+      <form onSubmit={submitHandler}>
+        {/* <label htmlFor="file" className={styles.shareOption}>
               <Icon name="images" className={styles.shareIcon} />
               <span className={styles.shareOptionText}>Photo</span>
               <input
@@ -69,25 +75,21 @@ function Postbox({ user }) {
                 onChange={handleChange}
               />
             </label> */}
-            <div className={styles.shareOption}>
-              <Icon name="map marker" className={styles.shareIcon} />
-              <span className={styles.shareOptionText}>Location</span>
-            </div>
-            <div className={styles.shareOption}>
-              <Icon name="smile outline" className={styles.shareIcon} />
-              <span className={styles.shareOptionText}>Feelings</span>
-            </div>
-          </div>
-          <button className={styles.shareButton} type="submit">
-            {postsData.status === "loading" ? (
-              <Loader active inline="centered" size="tiny" />
-            ) : (
-              `Echo`
-            )}
-          </button>
-        </form>
-      </div>
-    </div>
+
+        <Button
+          color={"white"}
+          _hover={{ bg: "blue", color: "white" }}
+          bg={"#315CFD"}
+          type="submit"
+        >
+          {postsData.status === "loading" ? (
+            <Loader active inline="centered" size="tiny" />
+          ) : (
+            `Post`
+          )}
+        </Button>
+      </form>
+    </Flex>
   );
 }
 
