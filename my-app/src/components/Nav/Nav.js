@@ -39,7 +39,14 @@ import {
 import { useAuth } from "../../context/authContext";
 
 export default function Nav() {
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
+
+  function logoutHandler() {
+    setAuth(() => {
+      localStorage.removeItem("auth");
+    });
+  }
+
   return (
     <Flex
       background={"#315CFD"}
@@ -55,8 +62,27 @@ export default function Nav() {
       <Link px="8" paddingY="4" my="12" href="/explore">
         Explore
       </Link>
-      <Link>Profile</Link>
-      {/* <Link>{auth ? auth.user : `Profile`}</Link> */}
+      <Link paddingY="4" my="12" href="/profile">
+        Profile
+      </Link>
+
+      {auth && (
+        <Link
+          onClick={logoutHandler}
+          bg="white"
+          color="#315CFD"
+          mx="8"
+          px="3"
+          paddingY="2"
+          my="12"
+          href="/"
+          fontWeight="600"
+          borderRadius="5px"
+          textDecoration="none"
+        >
+          Logout{" "}
+        </Link>
+      )}
     </Flex>
   );
 }

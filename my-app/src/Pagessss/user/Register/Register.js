@@ -53,7 +53,10 @@ export function Register() {
       <Center pb={10}>
         <Box>
           <Box mb={5} textAlign="center">
-            <Heading as="h2" size="lg">
+            <Heading as="h2" size="lg" padding="1rem">
+              SocialCapital
+            </Heading>
+            <Heading as="h2" size="lg" padding="2rem">
               Register
             </Heading>
           </Box>
@@ -95,7 +98,9 @@ export function Register() {
               </FormControl>
               <Button
                 width="full"
-                colorScheme="blue"
+                color="white"
+                backgroundColor="#315CFD"
+                colorScheme="dark"
                 type="submit"
                 onClick={userRegister}
               >
@@ -109,7 +114,8 @@ export function Register() {
             <Button
               onClick={() => navigate("/")}
               variant="link"
-              colorScheme="blue"
+              color="#315CFD"
+              fill="#315CFD"
             >
               Log In
             </Button>{" "}

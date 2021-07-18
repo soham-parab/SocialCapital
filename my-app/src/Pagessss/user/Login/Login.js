@@ -24,6 +24,7 @@ import axios from "axios";
 import { useAuth } from "../../../context/authContext";
 
 export function Login() {
+  const [status, setStatus] = useState("idle");
   const { auth, setAuth } = useAuth();
   console.log(auth);
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ export function Login() {
   async function LoginButtonClicked(e) {
     e.preventDefault();
     try {
+      setStatus("loading");
       const response = await axios.post(
         "http://localhost:3005/login",
         loginValues
@@ -51,8 +53,10 @@ export function Login() {
       setAuth(response.data);
       console.log(response.data);
       localStorage.setItem("auth", JSON.stringify(response.data));
+      setStatus("idle");
       navigate("/feed");
     } catch (error) {
+      setStatus("idle");
       console.log(error);
     }
   }
@@ -95,11 +99,14 @@ export function Login() {
               </FormControl>
               <Button
                 width="full"
-                colorScheme="blue"
+                color="white"
+                backgroundColor="#315CFD"
+                colorScheme="dark"
                 type="submit"
                 onClick={LoginButtonClicked}
               >
-                <span>Log In</span>
+                {status === "idle" && <span>Log In</span>}
+                {status === "loading" && <Spinner />}
               </Button>
             </VStack>
           </form>
@@ -107,7 +114,7 @@ export function Login() {
             Don't have an account?{" "}
             <Button
               variant="link"
-              colorScheme="blue"
+              color="#315CFD"
               onClick={() => navigate("/register")}
             >
               Sign Up
