@@ -1,11 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
+import { Provider } from "react-redux";
+import store from "./Redux/store";
+import { ChakraProvider, theme } from "@chakra-ui/react";
+import { AuthProvider } from "./context/authContext";
 
 ReactDOM.render(
-   <React.StrictMode>
-      <App />
-   </React.StrictMode>,
-   document.getElementById("root")
+  <React.StrictMode>
+    <AuthProvider>
+      <Provider store={store}>
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
+      </Provider>
+    </AuthProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
